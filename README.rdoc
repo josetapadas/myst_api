@@ -1,1 +1,5 @@
-Mysterious API.
+= Mysterious API
+
+Sample enigmatic RoR api.
+
+[http://i.imgur.com/Qc6oKBw.jpg]
