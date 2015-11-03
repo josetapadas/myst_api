@@ -1,5 +1,7 @@
 = Mysterious API
 
+{<img src="https://travis-ci.org/josetapadas/myst_api.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/josetapadas/myst_api]
+
 Sample enigmatic RoR api.
 
 [http://i.imgur.com/Qc6oKBw.jpg]
