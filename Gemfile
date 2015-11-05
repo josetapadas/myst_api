@@ -49,3 +49,4 @@ group :test do
   gem 'ffaker'
 end
 
+gem 'devise', '~> 3.4.0'
