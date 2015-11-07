@@ -14,6 +14,7 @@ describe Api::V1::UsersController, type: :controller do
     it 'should return the user information' do
       reply = JSON.parse(response.body, symbolize_names: true)
       expect(reply[:user][:email]).to eql(@user.email)
+      expect(response.status).to eq(200)
     end
   end
 
@@ -27,6 +28,7 @@ describe Api::V1::UsersController, type: :controller do
         it "should return the created user" do
           reply = JSON.parse(response.body, symbolize_names: true)
           expect(reply[:user][:email]).to(eql @user_params[:email])
+          expect(response.status).to eq(201)
       end
     end
 
@@ -39,6 +41,7 @@ describe Api::V1::UsersController, type: :controller do
       it "should return an erroneus message" do
         reply = JSON.parse(response.body, symbolize_names: true)
         expect(reply[:errors][:email]).to include("can't be blank")
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -48,6 +51,7 @@ describe Api::V1::UsersController, type: :controller do
       before(:each) do
         @user = FactoryGirl.create(:user)
         patch(:update, { id: @user.id, user: { email: "new@email.com" } }, format: :json)
+        expect(response.status).to eq(200)
       end
 
       it "should return the updated user information" do
@@ -65,6 +69,7 @@ describe Api::V1::UsersController, type: :controller do
       it "should return an erroneus message" do
         reply = JSON.parse(response.body, symbolize_names: true)
         expect(reply[:errors][:email]).to include("is invalid")
+        expect(response.status).to eq(422)
       end
     end
   end
