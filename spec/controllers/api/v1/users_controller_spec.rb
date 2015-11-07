@@ -42,4 +42,30 @@ describe Api::V1::UsersController, type: :controller do
       end
     end
   end
+
+  describe "#update" do
+    context "successfully updating the user" do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        patch(:update, { id: @user.id, user: { email: "new@email.com" } }, format: :json)
+      end
+
+      it "should return the updated user information" do
+        reply = JSON.parse(response.body, symbolize_names: true)
+        expect(reply[:user][:email]).to eql("new@email.com")
+      end
+    end
+
+    context "errors while updating users" do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        patch(:update, { id: @user.id, user: { email: "notthedroidyouarelookingfor" } }, format: :json)
+      end
+
+      it "should return an erroneus message" do
+        reply = JSON.parse(response.body, symbolize_names: true)
+        expect(reply[:errors][:email]).to include("is invalid")
+      end
+    end
+  end
 end
