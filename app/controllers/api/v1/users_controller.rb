@@ -25,6 +25,15 @@ module Api
         end
       end
 
+      def destroy
+        @user = User.find(params[:id])
+        if @user.destroy
+          head(200)
+        else
+          head(422)
+        end
+      end
+
       private
 
       def user_params

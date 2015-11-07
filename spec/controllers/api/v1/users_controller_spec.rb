@@ -68,4 +68,17 @@ describe Api::V1::UsersController, type: :controller do
       end
     end
   end
+
+  describe "#destroy" do
+    context "successfully deletes the user" do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        delete(:destroy, { id: @user.id }, format: :json)
+      end
+
+      it "should return 200" do
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end
