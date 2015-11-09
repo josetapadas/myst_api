@@ -16,8 +16,6 @@ describe Api::V1::SessionsController, type: :controller do
       it "should return the authenticated user and token" do
         reply = JSON.parse(response.body, symbolize_names: true)
 
-        puts reply
-
         expect(reply[:user][:authentication_token]).to eql(@user.authentication_token)
         expect(response.status).to eq(200)
       end
@@ -35,6 +33,19 @@ describe Api::V1::SessionsController, type: :controller do
         expect(reply[:errors]).to eql("Invalid email or password")
         expect(response.status).to eq(422)
       end
+    end
+  end
+
+  describe "#destroy" do
+
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      sign_in(@user)
+      delete(:destroy, id: @user.authentication_token)
+    end
+
+    it "should return 200" do
+      expect(response.status).to eq(200)
     end
   end
 end
