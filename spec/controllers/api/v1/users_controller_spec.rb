@@ -50,7 +50,10 @@ describe Api::V1::UsersController, type: :controller do
     context "successfully updating the user" do
       before(:each) do
         @user = FactoryGirl.create(:user)
+
+        request.headers['Authorization'] =  @user.authentication_token
         patch(:update, { id: @user.id, user: { email: "new@email.com" } }, format: :json)
+
         expect(response.status).to eq(200)
       end
 
@@ -63,6 +66,8 @@ describe Api::V1::UsersController, type: :controller do
     context "errors while updating users" do
       before(:each) do
         @user = FactoryGirl.create(:user)
+
+        request.headers['Authorization'] =  @user.authentication_token
         patch(:update, { id: @user.id, user: { email: "notthedroidyouarelookingfor" } }, format: :json)
       end
 
@@ -78,6 +83,8 @@ describe Api::V1::UsersController, type: :controller do
     context "successfully deletes the user" do
       before(:each) do
         @user = FactoryGirl.create(:user)
+        request.headers['Authorization'] =  @user.authentication_token
+
         delete(:destroy, { id: @user.id }, format: :json)
       end
 
