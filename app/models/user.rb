@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   has_many :songs, dependent: :destroy
+  has_many :song_tracks, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
