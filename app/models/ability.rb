@@ -19,7 +19,7 @@ class Ability
         song_track.try(:user) == user
       end
     else
-      can :show, :all
+      can [:index, :show], :all
     end
   end
 end

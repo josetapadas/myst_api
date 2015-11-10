@@ -1,14 +1,18 @@
+require 'pry'
+
 module Api
   module V1
     class SongTracksController < ApplicationController
       before_action :authenticate!, only: [:create, :update, :destroy]
-      load_and_authorize_resource
+      load_and_authorize_resource :except => [:index, :show]
 
       def index
+        @song_tracks = params.has_key?(:song_id) ? SongTrack.where(song_id: params[:song_id]) : SongTrack.all
         render json: @song_tracks, serializer: ActiveModel::ArraySerializer, each_serializer: SongTrackSerializer
       end
 
       def show
+        @song_track = SongTrack.find(params[:id])
         render json: @song_track, serializer: SongTrackSerializer
       end
 
