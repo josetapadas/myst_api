@@ -49,6 +49,7 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'pry'
 end
 
 gem 'devise', '~> 3.4.0'
