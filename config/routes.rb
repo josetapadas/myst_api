@@ -5,12 +5,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :songs, only: [:show]
-      resources :song_tracks, only: [:show]
+      resources :songs
+      resources :song_tracks
 
       resources :users, only: [:show, :create, :update, :destroy] do
-        resources :songs, :only => [:create, :update, :destroy] do
-          resources :song_tracks, :only => [:create, :update, :destroy]
+        resources :songs, :only => [:show, :create, :update, :destroy] do
+          resources :song_tracks, :only => [:show, :create, :update, :destroy]
         end
       end
 

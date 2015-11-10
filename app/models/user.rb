@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is?(current_role)
+    role == current_role.to_s
+  end
+
   private
 
   def generate_authentication_token
