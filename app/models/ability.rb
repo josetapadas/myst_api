@@ -7,14 +7,16 @@ class Ability
     if user.is?(:admin)
       can :manage, :all
     elsif user.is?(:user)
-      # user can create songs
       can :create, Song
 
-      can :update, Song do |song|
+      can [:destroy, :update], Song do |song|
         song.try(:user) == user
       end
-      can :destroy, Song do |song|
-        song.try(:user) == user
+
+      can :create, SongTrack
+
+      can [:destroy, :update], SongTrack do |song_track|
+        song_track.try(:user) == user
       end
     else
       can :show, :all
