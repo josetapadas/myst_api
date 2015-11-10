@@ -2,13 +2,15 @@ module Api
   module V1
     class SongsController < ApplicationController
       before_action :authenticate!, only: [:create, :update, :destroy]
-      load_and_authorize_resource
+      load_and_authorize_resource :except => [:index, :show]
 
       def index
+        @songs = params.has_key?(:user_id) ? Song.where(user_id: params[:user_id]) : Song.all
         render json: @songs, serializer: ActiveModel::ArraySerializer, each_serializer: SongSerializer
       end
 
       def show
+        @song = Song.find(params[:id])
         render json: @song, serializer: SongSerializer
       end
 
